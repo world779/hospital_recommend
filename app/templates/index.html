@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset=utf-8>
+  <title>Iris Predict App</title>
+
+  <!-- <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='index.css') }}"/> -->
+  <!-- <link rel= "stylesheet"  href= "{{ url_for('static', filename='index.css') }}"> -->
+  <script>
+    //ユーザーの現在の位置情報を取得
+    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+
+    /***** ユーザーの現在の位置情報を取得 *****/
+    function successCallback(position) {
+      var gl_text = "緯度：" + position.coords.latitude + "<br>";
+        gl_text += "経度：" + position.coords.longitude + "<br>";
+        // gl_text += "高度：" + position.coords.altitude + "<br>";
+        // gl_text += "緯度・経度の誤差：" + position.coords.accuracy + "<br>";
+        // gl_text += "高度の誤差：" + position.coords.altitudeAccuracy + "<br>";
+        // gl_text += "方角：" + position.coords.heading + "<br>";
+        // gl_text += "速度：" + position.coords.speed + "<br>";
+      document.getElementById("show_result").innerHTML = gl_text;
+    }
+
+    /***** 位置情報が取得できない場合 *****/
+    function errorCallback(error) {
+      var err_msg = "";
+      switch(error.code)
+      {
+        case 1:
+          err_msg = "位置情報の利用が許可されていません";
+          break;
+        case 2:
+          err_msg = "デバイスの位置が判定できません";
+          break;
+        case 3:
+          err_msg = "タイムアウトしました";
+          break;
+      }
+      document.getElementById("show_result").innerHTML = err_msg;
+      //デバッグ用→　document.getElementById("show_result").innerHTML = error.message;
+    }
+  </script>
+</head>
+<body>
+  <style media="screen">
+    *{
+    	margin: 0;
+    	padding: 0;
+    	box-sizing: border-box;
+
+    }
+
+    .main_visual{
+      padding-top: 30px;
+      padding-bottom: 50px;
+      background-color: #FBF8EF;
+	    background-image: radial-gradient(#eee 10%, transparent 20%), radial-gradient(#eee 10%, transparent 20%);
+	    background-position: 0 0, 10px 10px;
+	    background-size: 20px 20px;
+    }
+
+
+    #wrapper{
+       background-color: #fcfcfc;
+       text-align: center;
+       margin: 0 auto;
+       border: solid 0.5px black;
+       width: 600px;
+       padding: 30px;
+    }
+
+
+
+    header{
+    	height: 95px;
+    	width: 100%;
+    	background-color:#00BFFF;
+    }
+
+    header a{
+      color: #FFFFFF;
+    }
+
+    .head{
+      height: 60px;
+      background-color:  #0489B1;
+      /* backgound-image: url({{url_for('static', filename='10771.png')}}); */
+      font-size: 30px;
+      line-height: 60px;
+      text-align: center;
+      color:#FAFAFA;
+    }
+
+    .header_div{
+    	width: 100%;
+    	margin: 0 auto;
+      text-align: center;
+    }
+
+    .nav_item{
+      margin-top: 10px;
+    	display: inline-block;
+    	font-size: 16px;
+    	color: #FFFFFF;
+    	padding: 0 30px;
+    	list-style: none;
+    	vertical-align: middle;
+    }
+
+    .hospital_img{
+      width: 100%;
+      object-fit: cover;
+      object-position : 100% 100%
+    }
+
+    .exp{
+      margin-top:30px;
+      margin-bottom: 30px;
+    }
+
+    /*全体*/
+    .hidden_box {
+        margin-left: 0;
+        margin-right: 0;
+        margin-bottom: 2em;
+        margin-top: 5px;
+        padding: 0;
+    }
+
+    .box_title{
+      padding-bottom: 0px;
+    }
+
+    /*ボタン装飾*/
+    .hidden_box label {
+        background-color: skyblue;
+        padding: 5px;
+        font-weight: bold;
+        color: #FFFFFF;
+        border: solid 2px skyblue;
+        cursor :pointer;
+        width: 10px;
+        height: 3px;
+        font-size: 10px;
+        border-radius: 10px;
+    }
+
+    /*ボタンホバー時*/
+    .hidden_box label:hover {
+        background: #efefef;
+        color: skyblue;
+    }
+
+    /*チェックは見えなくする*/
+    .hidden_box input {
+        display: none;
+    }
+
+    /*中身を非表示にしておく*/
+    .hidden_box .hidden_show {
+        height: 0;
+        padding: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: 0.8s;
+    }
+
+    /*クリックで中身表示*/
+    .hidden_box input:checked ~ .hidden_show {
+        padding: 20px 0;
+        height: auto;
+        opacity: 1;
+    }
+
+    .portfolio_hr{
+    	border: none;
+    	height: 1px;
+    	width: 300px;
+    	background-color: #E6E6E6;
+    	margin: 0 auto;
+    	margin-bottom: 30px;
+    }
+
+    .portfolio_hr2{
+      border: none;
+      height: 3px;
+      width: 500px;
+      background-color: #E6E6E6;
+      margin: 0 auto;
+      margin-bottom: 30px;
+    }
+
+    footer{
+    	height: 60px;
+    	width: 100%;
+    	background-color:   #0489B1;
+    }
+
+    .footer_text{
+    	font-size: 16px;
+    	color: #FAFAFA;
+    	text-align: center;
+    	line-height: 60px;
+    }
+
+  </style>
+
+  <header>
+    <div class="head">Hospital Recommend</div>
+
+    <div class="header_div">
+      <nav>
+        <ul>
+          <li class="nav_item" ><a href="./" style="text-decoration:none;">ホーム</a></li>
+          <li class="nav_item">病院一覧</li>
+          <li class="nav_item">コラム</li>
+          <li class="nav_item">お問い合わせ</li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div>
+    <img src="{{url_for('static', filename='main-overview.jpg')}}" alt="hospital.jpg" class="hospital_img"/>
+  </div>
+
+
+  <div class="main_visual">
+    <div id="wrapper">
+      <p class="exp">現在地、診療可能な曜日、入院や救急の有無に合わせた最適な病院をご案内します。<br>すべてコロナウイルスに対応した病院を掲載しています。</p>
+      <hr class="portfolio_hr2">
+      <p class="box_title">あなたの現在位置</p>
+      <div class="hidden_box">
+        <label for="label1">クリックして取得</label>
+        <input type="checkbox" id="label1"/>
+        <div class="hidden_show">
+          <!--非表示ここから-->
+          	<div id="show_result"></div>
+          <!--ここまで-->
+        </div>
+      </div>
+      <hr class="portfolio_hr">
+
+       <form method="post">
+
+         <div>
+           {% for message in form.SepalLength.errors %}
+              <div style="color:red;">{{ message }}</div>
+           {% endfor %}
+           <p>平日の外来</p>
+           <select name="SepalLength">
+               <option value="null" disabled selected>選択して下さい</option>
+                  <option value=1>あり</option>
+                  <option value=0>なし</option>
+          </select>
+        </div>
+
+        <div>
+          <br>
+          {% for message in form.SepalWidth.errors %}
+             <div style="color:red;">{{ message }}</div>
+          {% endfor %}
+          <p>土日の外来</p>
+          <select name="SepalWidth">
+              <option value="null" disabled selected>選択して下さい</option>
+                <option value=1>あり</option>
+                <option value=0>なし</option>
+         </select>
+       </div>
+
+       <div>
+         <br>
+         {% for message in form.PetalLength.errors %}
+            <div style="color:red;">{{ message }}</div>
+         {% endfor %}
+         <p>入院の可否</p>
+         <select name="PetalLength">
+             <option value="null" disabled selected>選択して下さい</option>
+              <option value=1>可</option>
+              <option value=0>否</option>
+        </select>
+      </div>
+
+      <div>
+        <br>
+        {% for message in form.PetalWidth.errors %}
+           <div style="color:red;">{{ message }}</div>
+        {% endfor %}
+        <p>救急の可否</p>
+        <select name="PetalWidth">
+            <option value="null" disabled selected>選択して下さい</option>
+              <option value=1>可</option>
+              <option value=0>否</option>
+       </select>
+     </div>
+     <br>
+     <hr class="portfolio_hr2">
+
+
+          <!-- {{ form.SepalLength.label }}<br> -->
+          <!-- {{ form.SepalLength }} -->
+          <!-- <br> -->
+          <!-- {{ form.SepalWidth.label }}<br> -->
+          <!-- {{ form.SepalWidth }} -->
+          <!-- <br> -->
+          <!-- {{ form.PetalLength.label }}<br> -->
+          <!-- {{ form.PetalLength }} -->
+          <!-- <br> -->
+          <!-- {{ form.PetalWidth.label }}<br> -->
+          <!-- {{ form.PetalWidth }} -->
+
+          <p class="submit">{{ form.submit }}</p>
+       </form>
+    </div>
+  </div>
+
+  <footer>
+		<p class="footer_text">Ⓒ 2020 Hospital Recommend</p>
+	</footer>
+</body>
+</html>

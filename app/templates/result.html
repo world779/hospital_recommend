@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<title>Hospital recommend App</title>
+
+
+<style media="screen">
+  *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  h3 { margin-bottom:10px; }
+
+  .main_visual{
+    padding-top: 20px;
+    padding-bottom: 50px;
+    background-color: #FBF8EF;
+    background-image: radial-gradient(#eee 10%, transparent 20%), radial-gradient(#eee 10%, transparent 20%);
+    background-position: 0 0, 10px 10px;
+    background-size: 20px 20px;
+  }
+
+
+  #wrapper{
+     background-color: #fcfcfc;
+     text-align: center;
+     margin: 0 auto;
+     border: solid 0.5px black;
+     width: 600px;
+     padding: 30px;
+  }
+
+  #wrapper p{
+    margin-bottom: 20px;
+  }
+
+
+
+  header{
+    height: 95px;
+    width: 100%;
+    background-color: #00BFFF;
+  }
+
+  header a{
+    color: #FFFFFF;
+  }
+
+  .head{
+    height: 60px;
+    background-color:  #0489B1;
+    /* backgound-image: url({{url_for('static', filename='10771.png')}}); */
+    font-size: 30px;
+    line-height: 60px;
+    text-align: center;
+    color:#FAFAFA;
+  }
+
+  .header_div{
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .nav_item{
+    margin-top: 10px;
+    display: inline-block;
+    font-size: 16px;
+    color: #FFFFFF;
+    padding: 0 30px;
+    list-style: none;
+    vertical-align: middle;
+  }
+
+  .hospital_img{
+    width: 100%;
+    object-fit: cover;
+    object-position : 100% 100%
+  }
+
+  .no_img{
+    width: 50px;
+    margin-bottom: 10px;
+  }
+
+
+  .portfolio_hr{
+  	border: none;
+  	height: 1px;
+  	width: 500px;
+  	background-color: #E6E6E6;
+  	margin: 0 auto;
+  	margin-top: 30px;
+  }
+
+  footer{
+    height: 60px;
+    width: 100%;
+    background-color:   #0489B1;
+  }
+
+  .footer_text{
+    font-size: 16px;
+    color: #FAFAFA;
+    text-align: center;
+    line-height: 60px;
+  }
+
+
+</style>
+
+<header>
+  <div class="head">Hospital Recommend</div>
+
+  <div class="header_div">
+    <nav>
+      <ul>
+        <li class="nav_item"><a href="./" style="text-decoration:none;">ホーム</a></li>
+        <li class="nav_item">病院一覧</li>
+        <li class="nav_item">コラム</li>
+        <li class="nav_item">お問い合わせ</li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div>
+  <img src="{{url_for('static', filename='main-overview.jpg')}}" alt="hospital.jpg" class="hospital_img"/>
+</div>
+
+<div class="main_visual">
+  <div id="wrapper">
+    {% if Name1 %}
+      <img src="{{url_for('static', filename='no1.png')}}" alt="hospital.jpg" class="no_img"/>
+      <h3>{{ Name1 }}</h3><p>平日:{{ day1 }}   　土日：{{ holiday1 }}<br>入院：{{ nyuuinn1 }}   　救急：{{ kyuukyuu1 }}</p><a href=" {{ URL1 }}" target="_blank">病院HPはこちら</a><br>
+      <hr class="portfolio_hr"><br>
+      <img src="{{url_for('static', filename='no2.png')}}" alt="hospita2.jpg" class="no_img"/>
+      <h3>{{ Name2 }}</h3><p>平日:{{ day2 }}  　 土日：{{ holiday2 }}<br>入院：{{ nyuuinn2 }}   　救急：{{ kyuukyuu2 }}</p><a href=" {{ URL2 }}" target="_blank">病院HPはこちら</a><br>
+      <hr class="portfolio_hr"><br>
+      <img src="{{url_for('static', filename='no3.png')}}" alt="hospita3.jpg" class="no_img"/>
+      <h3>{{ Name3 }}</h3><p>平日:{{ day3 }}  　 土日：{{ holiday3 }}<br>入院：{{ nyuuinn3 }}   　救急：{{ kyuukyuu3 }}</p><a href=" {{ URL3 }}" target="_blank">病院HPはこちら</a><br>
+      <hr class="portfolio_hr"><br>
+      <h3>4<br> {{ Name4 }}</h3><p>平日:{{ day4 }}   　土日：{{ holiday4 }}<br>入院：{{ nyuuinn4 }}   　救急：{{ kyuukyuu4 }}</p><a href=" {{ URL4 }}" target="_blank">病院HPはこちら</a><br>
+      <hr class="portfolio_hr"><br>
+      <h3>5<br>{{ Name5 }}</h3><p>平日:{{ day5 }}   　土日：{{ holiday5 }}<br>入院：{{ nyuuinn5 }}   　救急：{{ kyuukyuu5 }}</p><a href=" {{ URL5 }}" target="_blank">病院HPはこちら</a><br>
+      <hr class="portfolio_hr"><br>
+      <a href="./">トップへ戻る</a>
+    {% else %}
+      <a href="./">トップへ戻る</a>
+    {% endif %}
+  </div>
+</div>
+
+<footer>
+  <p class="footer_text">Ⓒ 2020 Hospital Recommend</p>
+</footer>
